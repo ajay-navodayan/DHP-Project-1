@@ -8,6 +8,7 @@ import re
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import pos_tag
+nltk.download('all')
 
 app = Flask(__name__)
 oauth = OAuth(app)
