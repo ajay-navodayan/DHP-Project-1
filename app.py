@@ -39,16 +39,15 @@ def authenticate(username, password):
 
 def connect_db():
     conn = psycopg2.connect(
-        dbname="dhp2024",
-        user="postgres",
-        password="Ajay@123",
-        host="localhost"
+        dbname=os.environ['postgres://dhp2_user:D7Jy5rPyMAHdS44bJbz2NSZf4M3FNpCV@dpg-cnm807gcmk4c73age6k0-a:5432/dhp2'],       
     )
     return conn
 
 
 def connect_to_database():
-    return psycopg2.connect(dbname="dhp2024", user="postgres", password="Ajay@123", host="localhost")
+    return psycopg2.connect(
+        dbname=os.environ['postgres://dhp2_user:D7Jy5rPyMAHdS44bJbz2NSZf4M3FNpCV@dpg-cnm807gcmk4c73age6k0-a:5432/dhp2'],       
+    )
 
 
 # Function to clean HTML text
