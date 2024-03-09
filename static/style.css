@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('bg.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.admin {
+    display: flex;
+    align-items: center;
+}
+
+.admin img.logo {
+    height: 600px; /* Increase the height of the logo */
+    margin-right: 10px; /* Add margin to the right of the logo for spacing */
+}
+
+.admin h1 {
+    margin: 0;
+    margin-left: 380px; /* Add margin to the left of the heading for spacing */
+}
+
+
+
+.info {
+    font-style: italic;
+    font-weight: bolder;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 0px;
+    padding: 20px;
+    background-image: url('bg6.png');
+    margin-top: 70px;
+}
+
+
+
+
+h1{
+    text-align: center;
+    color: black;
+    font-weight: 500;
+    font-style: calc();
+    
+}
+h2 {
+    text-align: center;
+    color: white;
+    font-weight: 1000;
+    font-style: calc();
+    margin-left: 00px;
+    
+}
+
+form {
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+button {
+    margin: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+p {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.admin a {
+    margin-left: 50px;
+    
+
+}
+
+.admin a img.logo {
+    width: 150px; /* Adjust the width to make the logo larger */
+    height: auto; /* Maintain aspect ratio */
