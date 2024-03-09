@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL History</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        /* Apply custom styling to the second column */
+        td:nth-child(2) a {
+            cursor: pointer; /* Change cursor to pointer */
+            color: blue; /* Change text color to blue */
+            text-decoration: underline; /* Add underline */
+        }
+    </style>
+</head>
+<body>
+    <h1>URL History (Admin Only)</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Serial_no</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in data %}
+            <tr>
+                <td>{{ loop.index }}</td> <!-- Display serial number -->
+                <td><a href="{{ entry[1] }}" target="_blank">{{ entry[1] }}</a></td> <!-- Make URL clickable -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

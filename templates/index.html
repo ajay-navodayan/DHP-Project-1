@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Analysis</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-YWznzLFngj5uAei3EJMOxIqCm/fL++SkfAhTq4WD1PtYzFuV+lXLWBzONiEXLXMWzvRM2aitCeBGRXNrvAHEqrA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* CSS to resize the logo */
+        .logo {
+            max-width: 50px; /* Set the maximum width of the logo */
+            height: auto; /* Maintain aspect ratio */
+            margin-right
+        }
+        .git {
+            max-width: 130px; /* Set the maximum width of the logo */
+            height: auto; /* Maintain aspect ratio */
+            align-items: center; /* Center content horizontally */
+            justify-content: center
+            margin-right:1200px;
+            
+        }
+
+        /* CSS to center the div */
+        .centered-div {
+            text-align: center; /* Center align content */
+            margin-top: 20px; /* Add some top margin for spacing */
+        }
+        .centered-content {
+            display: inline-block; /* Ensure content is treated as block and centered */
+            text-align: left; /* Reset text alignment for inner content */
+            
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+
+            <div class="admin">
+              
+                <a href="{{ url_for('admin') }}">
+                    <img src="{{ url_for('static', filename='ADMIN.png') }}"  alt="Logo" class="logo">
+                                </a>
+                <h1 style=" margin-top: 10px;  font-weight: bold; font-style:italic; color: #333; text-align: center;">WELCOME TO DNA NEWS</h1>                         
+                           
+                
+                
+            </div>
+            
+            <div class='info'>
+
+                <h1> Are you worried about ads and unwanted articles while reading news? </h1>
+                <h1> Now your Problem is solved </h1>
+                <h1> You are just one click away from Your clean article </h1>
+        
+                <h1> Enter Your Link below and Read news without any disturbance
+            </div>
+        </div>
+    <div class="container">
+       
+        <h2>Submit URL</h2>
+        <form action="/submit_url" method="post">
+            <input type="text" name="url" placeholder="Enter news article URL">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+
+    <div class="centered-div">
+        <div class="centered-content">
+            
+            {% if logged_in %}
+                <p>You are logged in with GitHub.</p>
+                {% if is_admin %}
+                    <p>You are an admin user.</p>
+                {% else %}
+                    <p>You are not an admin user.</p>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('github_login') }}">
+                    <img src="{{ url_for('static', filename='GitHub.png') }}"  alt="Logo" class="git">
+                </a>
+            {% endif %}
+            
+        </div>
+    </div>
+    
+
+
+</body>
+</html>

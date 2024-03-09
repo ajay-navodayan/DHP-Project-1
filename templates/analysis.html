@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="font-weight:bold;">Analysis Result</h1>
+    
+    <!-- Form start -->
+    <form action="/submit_analysis" method="post">
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>URL</td>
+                <td>{{ url }}</td>
+            </tr>
+            <tr>
+                <td>Number of Sentences</td>
+                <td>{{ num_sentences }}</td>
+            </tr>
+            <tr>
+                <td>Number of Words</td>
+                <td>{{ num_words }}</td>
+            </tr>
+            <tr>
+                <td>Number of POS Tags</td>
+                <td>{{ pos_tags }}</td>
+            </tr>
+        </table>
+        
+        <h2 style="color: red;">Cleaned News Text:</h2>
+
+        <p>{{ clean_text }}</p>
+        
+        <!-- Displaying summary -->
+        <h2 style="color: red;">Summary:</h2>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Words Count</td>
+                <td>{{ summary.words_count }}</td>
+            </tr>
+            <tr>
+                <td>Sentences Count</td>
+                <td>{{ summary.sentences_count }}</td>
+            </tr>
+            <tr>
+                <td>UPOS Tag Count</td>
+                <td>{{ summary.UPOS_tag_count }}</td>
+            </tr>
+        </table>
+
+        
+    </form>
+    <!-- Form end -->
+</body>
+</html>
