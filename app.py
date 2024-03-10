@@ -151,7 +151,7 @@ def submit_url():
 def admin():
     # Check if session exists, not just username
     if not session:
-        return redirect(url_for('admin_login'))
+        return render_template('index.html')
     elif request.method == 'POST':
         if authenticate(request.form['username'], request.form['password']):
             session['username'] = request.form['username']
@@ -170,7 +170,7 @@ def logout():
 def url_history():
     # Check if session exists
     if not session:
-        return redirect(url_for('admin'))
+        returnrender_template('index.html')
     conn = connect_db()
     cur = conn.cursor()
     cur.execute("SELECT url, text FROM Articles")
