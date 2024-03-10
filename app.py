@@ -37,12 +37,12 @@ github_admin_usernames = ["ajay-navodayan", "atmabodha"]
 # Authentication function
 def authenticate(username, password):
     return username == 'admin' and password == 'Ajay@123'
-
 def connect_db():
     conn = psycopg2.connect(
-        host='dpg-cnm807gcmk4c73age6k0-a', database='dhp2', user='dhp2_user', password='D7Jy5rPyMAHdS44bJbz2NSZf4M3FNpCV'               
+        host='dpg-cnm807gcmk4c73age6k0-a', database='dhp2', user='dhp2_user', password='D7Jy5rPyMAHdS44bJbz2NSZf4M3FNpCV'
     )
-    return conn
+    return conn
+
 
 
 # def connect_to_database():
@@ -50,9 +50,9 @@ def connect_db():
 
 
 # Function to clean HTML text
-# def clean_html(raw_html):
-#     clean_text = re.sub(r'<.*?>', '', str(raw_html))
-#     return clean_text
+def clean_html(raw_html):
+    clean_text = re.sub(r'<.*?>', '', str(raw_html))
+    return clean_text
 
 # Function to clean and analyze URL
 def clean_and_analyze(url):
