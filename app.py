@@ -204,7 +204,7 @@ def github_authorize():
             # Fetch URL history from the database
             connection = connect_db()
             cursor = connection.cursor()
-            cursor.execute("SELECT url, text FROM Articles")
+            cursor.execute("SELECT * FROM Articles")
             data = cursor.fetchall()
             connection.close()
 
