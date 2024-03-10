@@ -48,8 +48,8 @@ def connect_db():
 
 # Function to clean HTML text
 def clean_html(raw_html):
-    clean_text = re.sub(r'<.*?>', '', str(raw_html))
-    return clean_text
+    cleaned_text = re.sub(r'<.*?>', '', str(raw_html))
+    return cleaned_text
 
 # Function to clean and analyze URL
 def clean_and_analyze(url):
