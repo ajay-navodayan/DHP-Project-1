@@ -40,15 +40,15 @@ def authenticate(username, password):
 
 def connect_db():
     conn = psycopg2.connect(
-        dbname=os.environ['postgres://dhp2_user:D7Jy5rPyMAHdS44bJbz2NSZf4M3FNpCV@dpg-cnm807gcmk4c73age6k0-a:5432/dhp2'],       
+        host='dpg-cnm807gcmk4c73age6k0-a', database='dhp2', user='dhp2_user', password='D7Jy5rPyMAHdS44bJbz2NSZf4M3FNpCV'               
     )
     return conn
 
 
-def connect_to_database():
-    return psycopg2.connect(
-        dbname=os.environ['postgres://dhp2_user:D7Jy5rPyMAHdS44bJbz2NSZf4M3FNpCV@dpg-cnm807gcmk4c73age6k0-a:5432/dhp2'],       
-    )
+# def connect_to_database():
+#     return psycopg2.connect(
+#         dbname=os.environ['postgres://dhp2_user:D7Jy5rPyMAHdS44bJbz2NSZf4M3FNpCV@dpg-cnm807gcmk4c73age6k0-a:5432/dhp2'],       
+#     )
 
 
 # Function to clean HTML text
@@ -216,7 +216,7 @@ def github_authorize():
         username = resp['login']
         if username in github_admin_usernames:
             # Fetch URL history from the database
-            connection = connect_to_database()
+            connection = connect_db()
             cursor = connection.cursor()
             cursor.execute("SELECT url, text FROM Articles")
             data = cursor.fetchall()
