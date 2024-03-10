@@ -11,7 +11,11 @@ from nltk import pos_tag
 
 app = Flask(__name__)
 oauth = OAuth(app)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = "my name is ajay"
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('universal_tagset')
 
 app.config['SECRET_KEY'] = "THIS SHOULD BE SECRET"
 app.config['GITHUB_CLIENT_ID'] = "0c8472d74628a280b098"
