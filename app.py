@@ -13,9 +13,8 @@ app = Flask(__name__)
 oauth = OAuth(app)
 app.secret_key = "my name is ajay"
 
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('universal_tagset')
+nltk.download('all')
+
 
 app.config['SECRET_KEY'] = "THIS SHOULD BE SECRET"
 app.config['GITHUB_CLIENT_ID'] = "0c8472d74628a280b098"
