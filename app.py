@@ -50,9 +50,9 @@ def connect_db():
 
 
 # Function to clean HTML text
-def clean_html(raw_html):
-    clean_text = re.sub(r'<.*?>', '', str(raw_html))
-    return clean_text
+# def clean_html(raw_html):
+#     clean_text = re.sub(r'<.*?>', '', str(raw_html))
+#     return clean_text
 
 # Function to clean and analyze URL
 def clean_and_analyze(url):
@@ -148,9 +148,9 @@ def submit_url():
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     # Check if session exists, not just username
-    if not session:
-        return render_template('index.html')
-    elif request.method == 'POST':
+    # if not session:
+    #     return render_template('index.html')
+    if request.method == 'POST':
         if authenticate(request.form['username'], request.form['password']):
             session['username'] = request.form['username']
             return redirect(url_for('url_history'))
