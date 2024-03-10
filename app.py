@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
 from authlib.integrations.flask_client import OAuth
 import psycopg2
@@ -8,7 +8,6 @@ import re
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import pos_tag
-nltk.download('all')
 
 app = Flask(__name__)
 oauth = OAuth(app)
@@ -33,7 +32,6 @@ github = oauth.register(
 github_admin_usernames = ["ajay-navodayan", "atmabodha"]
 
 
-
 # Authentication function
 def authenticate(username, password):
     return username == 'admin' and password == 'Ajay@123'
@@ -45,12 +43,6 @@ def connect_db():
     return conn
 
 
-# def connect_to_database():
-#     return psycopg2.connect(
-#         dbname=os.environ['postgres://dhp2_user:D7Jy5rPyMAHdS44bJbz2NSZf4M3FNpCV@dpg-cnm807gcmk4c73age6k0-a:5432/dhp2'],       
-#     )
-
-
 # Function to clean HTML text
 def clean_html(raw_html):
     clean_text = re.sub(r'<.*?>', '', str(raw_html))
@@ -58,7 +50,11 @@ def clean_html(raw_html):
 
 # Function to clean and analyze URL
 def clean_and_analyze(url):
-    html = urlopen(url).read().decode('utf8')
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+    }
+    req = Request(url, headers=headers)
+    html = urlopen(req).read().decode('utf8')
     soup = BeautifulSoup(html, 'html.parser')
 
     # Extract news text
@@ -73,23 +69,8 @@ def clean_and_analyze(url):
         cleaned_text += re.sub(r'<.*?>', '', str(element)) + "\n"
 
     # Analyzing text
-
-    return cleaned_text
-
-# Routes
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/submit_url', methods=['POST'])
-def submit_url():
-    url = request.form['url']
-    
-    # Clean and analyze the URL
-    clean_text = clean_and_analyze(url)
-    
-    words_list = word_tokenize(clean_text) 
-    sent_list = sent_tokenize(clean_text)
+    words_list = word_tokenize(cleaned_text) 
+    sent_list = sent_tokenize(cleaned_text)
 
     count_stop_words = 0
     for i in words_list:
@@ -120,8 +101,6 @@ def submit_url():
     
     conn = connect_db()
     cur = conn.cursor()
-    ######################################################
-    #creating table
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Articles (
             id SERIAL PRIMARY KEY,
@@ -133,7 +112,6 @@ def submit_url():
              
         )
     """)
-    ########################################################
     cur.execute("""
         INSERT INTO Articles (url, text,word_count,Sentence_count,POS_tag_count)
         VALUES (%s, %s, %s,%s,%s)
@@ -141,10 +119,20 @@ def submit_url():
     conn.commit()
     conn.close()
     
-    # Passing analysis data to the template
-    return render_template('analysis.html', url=url, num_sentences=sent_count, num_words=words_count, pos_tags=pos_tag_count, dict_upos=dict_upos, clean_text=clean_text, summary=summary)
+    return cleaned_text, summary
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
+@app.route('/submit_url', methods=['POST'])
+def submit_url():
+    url = request.form['url']
+    
+    # Clean and analyze the URL
+    clean_text, summary = clean_and_analyze(url)
+    
+    return render_template('analysis.html', url=url, summary=summary, clean_text=clean_text)
 
 
 @app.route('/admin', methods=['GET', 'POST'])
@@ -170,7 +158,7 @@ def logout():
 def url_history():
     # Check if session exists
     if not session:
-        returnrender_template('index.html')
+        return render_template('index.html')
     conn = connect_db()
     cur = conn.cursor()
     cur.execute("SELECT url, text FROM Articles")
@@ -179,8 +167,6 @@ def url_history():
     return render_template('history.html', data=data)
 
 
-
-# Default route
 @app.route('/index1')
 def index1():
     is_admin = False
@@ -194,7 +180,6 @@ def index1():
     return render_template('index1.html', logged_in=github_token is not None, is_admin=is_admin)
 
 
-# Github login route
 @app.route('/login/github')
 def github_login():
     github = oauth.create_client('github')
@@ -202,8 +187,6 @@ def github_login():
     return github.authorize_redirect(redirect_uri)
 
 
-# Github authorize route
-# Github authorize route
 @app.route('/login/github/authorize')
 def github_authorize():
     github = oauth.create_client('github')
@@ -228,7 +211,6 @@ def github_authorize():
             return "You are not authorized to access this page."
     else:
         return "Unable to fetch GitHub username."
-
 
 
 if __name__ == '__main__':
