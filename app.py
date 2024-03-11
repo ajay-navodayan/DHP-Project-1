@@ -147,9 +147,7 @@ def submit_url():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    # Check if session exists, not just username
-    # if not session:
-    #     return render_template('index.html')
+   
     if request.method == 'POST':
         if authenticate(request.form['username'], request.form['password']):
             session['username'] = request.form['username']
