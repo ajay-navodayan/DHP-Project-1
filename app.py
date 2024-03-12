@@ -12,13 +12,13 @@ nltk.download('universal_tagset')
 nltk.download('punkt')
 nltk.download('udhr2')
 nltk.download('averaged_perceptron_tagger')
-# nltk.download('all')
+
 
 app = Flask(__name__)
 oauth = OAuth(app)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+# app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-app.config['SECRET_KEY'] = "THIS SHOULD BE SECRET"
+app.config['SECRET_KEY'] = "Ajay"
 app.config['GITHUB_CLIENT_ID'] = "0c8472d74628a280b098"
 app.config['GITHUB_CLIENT_SECRET'] = "e73226578453966ee7f05f020d7e156de847151b"
 
