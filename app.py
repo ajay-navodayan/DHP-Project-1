@@ -50,9 +50,9 @@ def connect_db():
 
 
 # Function to clean HTML text
-def clean_html(raw_html):
-    clean_text = re.sub(r'<.*?>', '', str(raw_html))
-    return clean_text
+# def clean_html(raw_html):
+#     clean_text = re.sub(r'<.*?>', '', str(raw_html))
+#     return clean_text
 
 # Function to clean and analyze URL
 def clean_and_analyze(url):
@@ -70,8 +70,7 @@ def clean_and_analyze(url):
     for element in text_elements:
         cleaned_text += re.sub(r'<.*?>', '', str(element)) + "\n"
 
-    # Analyzing text
-
+   
     return cleaned_text
 
 # Routes
@@ -89,10 +88,10 @@ def submit_url():
     words_list = word_tokenize(clean_text) 
     sent_list = sent_tokenize(clean_text)
 
-    count_stop_words = 0
-    for i in words_list:
-        if i.lower() in nltk.corpus.stopwords.words('english'):
-            count_stop_words += 1
+    # count_stop_words = 0
+    # for i in words_list:
+    #     if i.lower() in nltk.corpus.stopwords.words('english'):
+    #         count_stop_words += 1
 
     def words(string):
         punc_list = ['.', ',', '!', '?']
