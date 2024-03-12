@@ -16,7 +16,7 @@ nltk.download('averaged_perceptron_tagger')
 
 app = Flask(__name__)
 oauth = OAuth(app)
-# app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 
 app.config['SECRET_KEY'] = "Ajay"
 app.config['GITHUB_CLIENT_ID'] = "0c8472d74628a280b098"
@@ -48,15 +48,6 @@ def connect_db():
     return conn
 
 
-
-# def connect_to_database():
-#     return psycopg2.connect(dbname="dhp2024", user="postgres", password="Ajay@123", host="localhost")
-
-
-# Function to clean HTML text
-# def clean_html(raw_html):
-#     clean_text = re.sub(r'<.*?>', '', str(raw_html))
-#     return clean_text
 
 # Function to clean and analyze URL
 def clean_and_analyze(url):
@@ -92,10 +83,7 @@ def submit_url():
     words_list = word_tokenize(clean_text) 
     sent_list = sent_tokenize(clean_text)
 
-    # count_stop_words = 0
-    # for i in words_list:
-    #     if i.lower() in nltk.corpus.stopwords.words('english'):
-    #         count_stop_words += 1
+
 
     def words(string):
         punc_list = ['.', ',', '!', '?']
@@ -224,9 +212,9 @@ def github_authorize():
             # Render history.html template with fetched data
              return render_template("history.html", data=data)
         else:
-            return "You are not authorized to access this page."
+            return "You are not authorized ."
     else:
-        return "Unable to fetch GitHub username."
+        return "incorrect username."
 
 
 
