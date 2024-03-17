@@ -105,7 +105,7 @@ def submit_url():
     words_count = words(clean_text)
     pos_tag_count = sum(dict_upos.values())
     
-    summary = {'words_count': words_count, 'sentences_count': sent_count, 'UPOS_tag_count': sum(dict_upos.values())}
+ 
     
     conn = connect_db()
     cur = conn.cursor()
@@ -131,7 +131,7 @@ def submit_url():
     conn.close()
     
     # Passing analysis data to the template
-    return render_template('analysis.html', url=url, num_sentences=sent_count, num_words=words_count, pos_tags=pos_tag_count, dict_upos=dict_upos, clean_text=clean_text, summary=summary)
+    return render_template('analysis.html', url=url, num_sentences=sent_count, num_words=words_count, pos_tags=pos_tag_count, dict_upos=dict_upos, clean_text=clean_text)
 
 
 
